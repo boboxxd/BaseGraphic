@@ -7,6 +7,7 @@
 #include <QPaintDevice>
 #include <iostream>
 #include <QDebug>
+
 namespace Graphic {
     enum State{IN,OUT,ALL};
     enum Type {Alarm,Handle};
@@ -23,7 +24,6 @@ namespace Graphic {
     void drawArrow(QPainter *p,const BaseGraphic& bg);
 
     void drawPolygon(QPainter *p,const BaseGraphic& bg);
-
 }
 
 //base class of graphic
@@ -62,7 +62,6 @@ public:
     ~Rectangle();
     virtual void paint(QPaintDevice*) override;
 private:
-
 };
 
 class Polygon:public BaseGraphic
@@ -72,7 +71,6 @@ public:
     ~Polygon();
     virtual void paint(QPaintDevice*) override;
 private:
-
 };
 
 class Arrow:public BaseGraphic
@@ -82,7 +80,6 @@ public:
     ~Arrow();
     virtual void paint(QPaintDevice*) override;
 private:
-
 };
 
 #endif // BASEGRAPHIC_H

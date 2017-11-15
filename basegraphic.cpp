@@ -67,9 +67,13 @@ BaseGraphic::~BaseGraphic()
 
 void BaseGraphic::show(std::ostream &out)
 {
-    qDebug()<<"void BaseGraphic::show(std::ostream &out)";
+    //qDebug()<<"void BaseGraphic::show(std::ostream &out)";
+
+    const std::type_info &tiInt = typeid(decltype(*this));
+
     for(auto i=data.begin();i!=data.end();i++)
     {
+        out<<'\n'<<tiInt.name()<<endl;
         out<<"("<<i->x()<<","<<i->y()<<")"<<' ';
     }
 }
