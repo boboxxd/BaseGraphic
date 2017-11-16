@@ -57,6 +57,7 @@ BaseGraphic::BaseGraphic()
     qDebug()<<"BaseGraphic::BaseGraphic()";
     pointcount=0;
     penwidth=2;
+    type=Graphic::Alarm;
     painter=new QPainter;
 }
 
@@ -67,13 +68,13 @@ BaseGraphic::~BaseGraphic()
 
 void BaseGraphic::show(std::ostream &out)
 {
-    //qDebug()<<"void BaseGraphic::show(std::ostream &out)";
+    qDebug()<<"void BaseGraphic::show(std::ostream &out)";
 
     const std::type_info &tiInt = typeid(decltype(*this));
 
     for(auto i=data.begin();i!=data.end();i++)
     {
-        out<<'\n'<<tiInt.name()<<endl;
+        out<<'\n'<<"classname="<<tiInt.name()<<endl;
         out<<"("<<i->x()<<","<<i->y()<<")"<<' ';
     }
 }
@@ -131,10 +132,6 @@ QVector<QPoint> BaseGraphic::GetPoints()
     return vec;
 }
 
-void BaseGraphic::setColor(const QColor& _color)
-{
-    color=_color;
-}
 
 void BaseGraphic::setPenwidth(int width)
 {
@@ -149,6 +146,19 @@ void BaseGraphic::setState(Graphic::State _state)
 void BaseGraphic::setType(Graphic::Type _type)
 {
     type=_type;
+    switch(type)
+    {
+        case Graphic::Alarm:
+            color=Qt::red;
+            break;
+        case Graphic::Handle:
+            color=Qt::blue;
+            break;
+        default:
+            type=Graphic::Alarm;
+            color=Qt::red;
+        break;
+    }
 }
 
 /**************************************BaseGraphic--END**************************/
@@ -170,6 +180,20 @@ Rectangle::~Rectangle()
      painter->end();
 }
 
+ void Rectangle::show(std::ostream &out)
+ {
+     qDebug()<<"void Rectangle::show(std::ostream &out)";
+
+     const std::type_info &tiInt = typeid(decltype(*this));
+
+     for(auto i=data.begin();i!=data.end();i++)
+     {
+         out<<'\n'<<"classname="<<tiInt.name()<<endl;
+         out<<"("<<i->x()<<","<<i->y()<<")"<<' ';
+     }
+ }
+
+
 /**************************************Rectangle--END**************************/
 /**************************************Polygon--Begin**************************/
  Polygon::Polygon():BaseGraphic()
@@ -189,6 +213,17 @@ void Polygon::paint(QPaintDevice *device)
     painter->end();
 }
 
+void Polygon::show(std::ostream &out)
+{
+    qDebug()<<"void Polygon::show(std::ostream &out)";
+
+    const std::type_info &tiInt = typeid(decltype(*this));
+    out<<'\n'<<"classname="<<tiInt.name()<<endl;
+    for(auto i=data.begin();i!=data.end();i++)
+    {
+        out<<"("<<i->x()<<","<<i->y()<<")"<<' ';
+    }
+}
 /**************************************Polygon--END**************************/
 /**************************************Arrow--Begin**************************/
 Arrow::Arrow():BaseGraphic()
@@ -206,5 +241,18 @@ void Arrow::paint(QPaintDevice *device)
     painter->setPen(QPen(color,penwidth));
     drawArrow(painter,*this);
     painter->end();
+}
+
+void Arrow::show(std::ostream &out)
+{
+    qDebug()<<"void Arrow::show(std::ostream &out)";
+
+    const std::type_info &tiInt = typeid(decltype(*this));
+
+    for(auto i=data.begin();i!=data.end();i++)
+    {
+        out<<'\n'<<"classname="<<tiInt.name()<<endl;
+        out<<"("<<i->x()<<","<<i->y()<<")"<<' ';
+    }
 }
 /**************************************Arrow--END**************************/

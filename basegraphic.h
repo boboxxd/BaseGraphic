@@ -33,7 +33,6 @@ public:
     virtual void show(std::ostream &out);
     BaseGraphic();
     virtual ~BaseGraphic();
-    void setColor(const QColor&);
     void setPenwidth(int width);
     void setState(Graphic::State);
     void setType(Graphic::Type);
@@ -60,6 +59,7 @@ class Rectangle:public BaseGraphic
 public:
     Rectangle();
     ~Rectangle();
+    virtual void show(std::ostream &out) override;
     virtual void paint(QPaintDevice*) override;
 private:
 };
@@ -69,6 +69,7 @@ class Polygon:public BaseGraphic
 public:
     Polygon();
     ~Polygon();
+    virtual void show(std::ostream &out) override;
     virtual void paint(QPaintDevice*) override;
 private:
 };
@@ -78,6 +79,7 @@ class Arrow:public BaseGraphic
 public:
     Arrow();
     ~Arrow();
+    virtual void show(std::ostream &out) override;
     virtual void paint(QPaintDevice*) override;
 private:
 };
